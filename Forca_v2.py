@@ -2,6 +2,7 @@
 import random                   #Importa a biblioteca random
 import os                       #importa a biblioteca com funções referenes ao OS
 import platform
+import sys
 if platform.system() == 'Linux':      # Detecta qual sistema operacional esta sendo usado
     clear = lambda: os.system('clear')# para poder implentar a função de limpar a tela
 else:
@@ -20,6 +21,8 @@ board = ['''
                |
            =========''', '''
 
+>>>>>>>>>>Hangman<<<<<<<<<<
+
            +---+
            |   |
            O   |
@@ -28,6 +31,8 @@ board = ['''
                |
            =========''', '''
 
+>>>>>>>>>>Hangman<<<<<<<<<<
+
            +---+
            |   |
            O   |
@@ -35,6 +40,8 @@ board = ['''
                |
                |
            =========''', '''
+
+>>>>>>>>>>Hangman<<<<<<<<<<
 
            +---+
            |   |
@@ -44,6 +51,8 @@ board = ['''
                |
            =========''', '''
 
+>>>>>>>>>>Hangman<<<<<<<<<<
+
            +---+
            |   |
            O   |
@@ -52,6 +61,8 @@ board = ['''
                |
            =========''', '''
 
+>>>>>>>>>>Hangman<<<<<<<<<<
+
            +---+
            |   |
            O   |
@@ -59,6 +70,8 @@ board = ['''
           /    |
                |
            =========''', '''
+
+>>>>>>>>>>Hangman<<<<<<<<<<
 
            +---+
            |   |
@@ -114,7 +127,7 @@ class handman:
           return board[self.count]
 
       def hangman_over(self):                        #Checa se o jogo acabou
-          if self.list_OUT != self.list_IN :         #Ele acaba quando as duas listas se tornal iguais
+          if self.list_OUT != self.list_IN :         #Ele acaba quando as duas listas se tornam iguais
               return True
           else:
               return False
@@ -136,16 +149,25 @@ def main():                                          #Executa o programa
         else:
             print(*b, sep=' ')
             print('Parabéns você ganhou')
-            break
+            SaiPro = input('\r Deseja continuar ?[s/n]: ')   #Continua ou sai do jogo
+            if SaiPro == 's':
+                clear()
+                os.execl(sys.executable, sys.executable, *sys.argv) #Reinicia o programa
+            else:
+                clear()
+                break
         if word.hangman_won():                       #Verifica se o jogador venceu
             print(word.print_game_status())
             print(*b,sep=' ')
             wordIN = input("Digita ai bb: ")
-            b = word.guess(wordIN)
+            if wordIN == 'sair':                     #Digite sair para sair do programa
+                break
+            else:
+                b = word.guess(wordIN)
             clear()
         else:
             print(word.print_game_status())
-            print(*b,'\nVocê perdeu a palavra era: ',word.word, sep=' ')
+            print(*b,'\nVocê perdeu, a palavra era: ',word.word, sep=' ')
             break
 
 # Executa o programa
